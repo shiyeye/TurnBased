@@ -132,5 +132,5 @@ MonoBehaviour:
   unitName: BlackXiaoZhi
   unitLevel: 100
   maxHP: 300
-  currentHP: 150
-  damage: 100
+  currentHP: 300
+  damage: 30

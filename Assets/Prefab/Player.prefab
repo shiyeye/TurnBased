@@ -131,6 +131,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: XiaoZhi
   unitLevel: 1
-  maxHP: 10
+  maxHP: 999
   currentHP: 10
-  damage: 5
+  damage: 50
