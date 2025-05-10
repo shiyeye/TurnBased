@@ -93,10 +93,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6115825782588779234}
-  - component: {fileID: 2863214378518720658}
+  - component: {fileID: 5380844610931116284}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,7 +117,7 @@ Transform:
   - {fileID: 6315627137450639169}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2863214378518720658
+--- !u!114 &5380844610931116284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,11 +126,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8644655484108891383}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621e9b4025d68e44585460c63f7a5124, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d395dac9f2e24744bf44b1e5d17e627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: BlackXiaoZhi
-  unitLevel: 100
-  maxHP: 300
-  currentHP: 300
-  damage: 30
+  enemyUnitName: BlackXiaoZhi
+  enemyUnitMaxHealth: 300
+  enemyUnitCurrentHealth: 500
+  enemyUnitLevel: 30
+  enemyUnitDamage: 10
+  isDead: 0
+  enemyUpdateHud: {fileID: 0}

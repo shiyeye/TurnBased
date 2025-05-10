@@ -93,10 +93,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2675130150640139817}
-  - component: {fileID: 6344094914790452029}
+  - component: {fileID: 6783190490862490699}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,7 +117,7 @@ Transform:
   - {fileID: 6069857210394854592}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6344094914790452029
+--- !u!114 &6783190490862490699
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,11 +126,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5330209377406349667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621e9b4025d68e44585460c63f7a5124, type: 3}
+  m_Script: {fileID: 11500000, guid: 810c36907435fc543b2484c1f0768c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: XiaoZhi
-  unitLevel: 1
-  maxHP: 999
-  currentHP: 10
-  damage: 50
+  playerUnitName: PengFei_He
+  playerUnitMaxHealth: 999
+  playerUnitCurrentHealth: 999
+  playerUnitLevel: 100
+  playerUnitDamage: 33
+  attackInterval: 2
+  currentTarget: {fileID: 8644655484108891383, guid: 878a93c9fb77a5347812ffc41c1c9c77, type: 3}

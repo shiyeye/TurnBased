@@ -3,148 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public enum BattleState { START, PLAYTURN, ENEMYTURN, WON, LOST };
+//战斗系统类
+public enum BattleState{ GAMESTART, PLAYERTURN, ENEMYTURN, WON, LOST }
 public class BattleSystem : MonoBehaviour
 {
+    [Header("战斗状态变量")]
+    public BattleState state;
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
 
-    public BattleHud playerHud;
-    public BattleHud enemyHud;
+    PlayerUnit playerUnit;
+    EnemyUnit enemyUnit;
 
+    [Header("UI组件")]
+    public PlayerBattleHud playerHud;
+    public EnemyBattleHud enemyHud;
 
-    Unit playerUnit;
-    Unit enemyUnit;
-    
-    public TextMeshProUGUI dialogueText;
-
-
-    public BattleState state;
-    // Start is called before the first frame update
     void Start()
     {
-        state = BattleState.START;
-        StartCoroutine(SetupBattle());
+        
+        //在游戏开始时调用SetupBattle方法
+        //设置战斗状态为GAMESTART
+        state = BattleState.GAMESTART;
+        SetupBattle();
     }
 
-    IEnumerator SetupBattle()
+    //设置战斗
+    //实例化玩家和敌人预制体在战斗站点上
+    //在游戏开始时调用
+    void SetupBattle()
     {
-        //实例化一个玩家的预制体在playerBattleStation的位置上
+        //实例化玩家和敌人预制体在战斗站点上
         GameObject playerGameObject = Instantiate(playerPrefab, playerBattleStation);
-        //playerUnit这个组件是playerGameObject.GetComponent上的脚本
-        playerUnit = playerGameObject.GetComponent<Unit>();
-
+        //获取玩家的信息脚本
+        playerUnit = playerGameObject.GetComponent<PlayerUnit>();
         GameObject enemyGameObject = Instantiate(enemyPrefab, enemyBattleStation);
-        enemyUnit = enemyGameObject.GetComponent<Unit>();
+        //获取敌人的信息脚本
+        enemyUnit = enemyGameObject.GetComponent<EnemyUnit>();
 
-        dialogueText.text = "You met " + enemyUnit.unitName + "!!!";
-
+        //设置玩家和敌人的血条和文本
+        //调用BattleHud类中的SetHud方法，传入Unit对象，先公开unit各个参数数值的代码，然后再创建一个battlehud的脚本，设置各个参数的值等于unit脚本里的参数，然后再公开battlehud的参数带入进去
         playerHud.SetHud(playerUnit);
         enemyHud.SetHud(enemyUnit);
 
-        yield return new WaitForSeconds(2f);
-
-        //前面运行后，转变为玩家回合
-        state = BattleState.PLAYTURN;
-
-        PlayerTurn();
-    }
-
-    IEnumerator PlayerAttack()
-    {
-        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
-
-        enemyHud.SetHP(enemyUnit.currentHP);
-        dialogueText.text = "The attack was successful! ";
-
-        yield return new WaitForSeconds(2f); 
-
-        if(isDead)
-        {
-            state = BattleState.WON;
-            EndBattle();
-        }
-        else
-        {
-            state = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
-        }
-    }
-
-    IEnumerator EnemyTurn()
-    {
-        dialogueText.text = enemyUnit.unitName + " attacks!";
-
-        yield return new WaitForSeconds(1f);
-
-        bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
-
-        playerHud.SetHP(playerUnit.currentHP);
-
-        yield return new WaitForSeconds(1f);
-
-        if (isDead)
-        {
-            state = BattleState.LOST;
-            EndBattle();
-        }
-        else
-        {
-            state = BattleState.PLAYTURN;
-            PlayerTurn();
-        }
-    }
-
-    void EndBattle()
-    {
-        if (state == BattleState.WON)
-        {
-            dialogueText.text = "You won the battle!";
-        }
-        else if (state == BattleState.LOST)
-        {
-            dialogueText.text = "You lost the battle!";
-        }
-    }
-
-    void PlayerTurn()
-    {
-        dialogueText.text = "What is your choice?";
+        state = BattleState.PLAYERTURN;
     }
     
-    IEnumerator PlayerPropButton()
-    {
-        playerUnit.Prop(50);
-
-        playerHud.SetHP(playerUnit.currentHP);
-        dialogueText.text = "You used a prop!";
-
-        yield return new WaitForSeconds(2f);
-
-        state = BattleState.ENEMYTURN;
-        StartCoroutine(EnemyTurn());
-    }
-    public void OnAttackButton()
-    {
-        if (state != BattleState.PLAYTURN)
-            return;
-
-        StartCoroutine(PlayerAttack());
-    }
-
-    public void OnPropButton()
-    {
-        if (state != BattleState.PLAYTURN)
-            return;
-        
-        StartCoroutine(PlayerPropButton());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
+}//2025.5.10
